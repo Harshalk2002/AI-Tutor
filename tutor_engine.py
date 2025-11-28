@@ -23,6 +23,32 @@ from pathlib import Path
 env_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
+import streamlit as st
+
+class TutorEngine:
+    def __init__(self):
+        # Load API key depending on environment
+        api_key = None
+
+        # 1. Streamlit Cloud (secrets)
+        if hasattr(st, "secrets"):
+            api_key = st.secrets.get("OPENAI_API_KEY")
+
+        # 2. Local development (.env)
+        if not api_key:
+            env_path = Path(__file__).resolve().parent / ".env"
+            load_dotenv(dotenv_path=env_path)
+            api_key = os.getenv("OPENAI_API_KEY")
+
+        if api_key:
+            try:
+                self.client = OpenAI(api_key=api_key)
+            except Exception as e:
+                self.client = None
+                print("ERROR INITIALIZING OPENAI CLIENT:", e)
+        else:
+            print("NO OPENAI_API_KEY FOUND")
+            self.client = None
 
 class TutorEngine:
     def __init__(self):
