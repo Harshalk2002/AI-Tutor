@@ -6,6 +6,10 @@ It integrates **React.js**, **FastAPI**, and **LLM-based reasoning**, deployed u
 
 ---
 
+✨ **Try it live:**  
+Explore the AI Math Tutor in action → https://aimathtutorgsu.streamlit.app/
+
+
 ## 🏗️ 2. System Architecture
 
 ```
